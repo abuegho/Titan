@@ -17,4 +17,8 @@ titanic_original =
   mutate(titanic_original, has_cabin_number2 = is.na(titanic_original$cabin) == FALSE)
 has_ = sapply(titanic_original$has_cabin_number2, as.integer)
 titanic_original = titanic_original %>% 
-  bind_cols(as_data_frame(has_))
+  bind_cols(as_data_frame(has_)) %>% 
+  select(-has_cabin_number2) %>% 
+  rename(has_cabin_number = value)
+
+write.csv(titanic_original, file = "titanic_clean.csv")
